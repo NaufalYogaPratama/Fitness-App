@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#17161C",
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
@@ -114,14 +114,14 @@ const styles = StyleSheet.create({
   },
   resultContainer: {
     marginTop: 20,
-    padding: 16,
+    padding: 15,
     borderRadius: 8,
-    backgroundColor: "#e0f7fa",
+    backgroundColor: "#BE4346",
     alignItems: "center",
   },
   resultText: {
     fontSize: 18,
-    color: "#007bff",
+    color: "#17161C",
     marginBottom: 4,
   },
 });

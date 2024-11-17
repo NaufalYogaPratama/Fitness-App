@@ -133,9 +133,10 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   bodyPartImage: {
-    width: 80,
-    height: 80,
+    width: 110,
+    height: 110,
     marginBottom: 10,
+    borderRadius: 10,
   },
   bodyPartName: {
     fontSize: 14,
