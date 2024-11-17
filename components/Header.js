@@ -6,10 +6,10 @@ const Header = ({ headerText, flexPosition }) => {
       style={{
         flexDirection: "row",
         justifyContent: flexPositionStyle,
-        backgroundColor: "white",
         alignItems: "center",
         marginBottom: 16,
         marginTop: 32,
+        color: "white",
       }}
     >
       <Text style={{ marginRight: 8, fontSize: 18, fontWeight: "600" }}>
