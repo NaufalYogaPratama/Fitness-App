@@ -9,6 +9,7 @@ import ProfileScreen from "./pages/ProfileScreen";
 import Exercise from "./pages/Exercise";
 import Quotes from "./pages/Quotes";
 import Calculator from "./pages/Calculator";
+import NutritionInfo from "./pages/NutritionInfo";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -39,6 +40,9 @@ function BottomTabNavigator() {
             case "Calculator":
               iconName = "law";
               break;
+            case "NutritionInfo":
+              iconName = "circle";
+              break;
             default:
               iconName = "circle";
           }
@@ -55,6 +59,7 @@ function BottomTabNavigator() {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Exercise" component={Exercise} />
       <Tab.Screen name="Calculator" component={Calculator} />
+      <Tab.Screen name="NutritionInfo" component={NutritionInfo} />
       <Tab.Screen name="Quotes" component={Quotes} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
