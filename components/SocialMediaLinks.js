@@ -10,12 +10,12 @@ import {
 const socialLinks = [
   {
     id: "1",
-    icon: "https://cdn-icons-png.flaticon.com/512/2111/2111425.png", // GitHub PNG Icon
+    icon: "https://cdn-icons-png.flaticon.com/512/2111/2111425.png",
     url: "https://github.com/NaufalYogaPratama",
   },
   {
     id: "2",
-    icon: "https://cdn-icons-png.flaticon.com/512/174/174857.png", // LinkedIn PNG Icon
+    icon: "https://cdn-icons-png.flaticon.com/512/174/174857.png",
     url: "https://www.linkedin.com/in/naufal-yoga-pratama-817856312/",
   },
 ];

@@ -9,7 +9,6 @@ const Header = ({ headerText, flexPosition }) => {
         alignItems: "center",
         marginBottom: 16,
         marginTop: 32,
-        color: "white",
       }}
     >
       <Text style={{ marginRight: 8, fontSize: 18, fontWeight: "600" }}>

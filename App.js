@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import { Octicons } from "@expo/vector-icons";
 import WelcomeScreen from "./pages/WelcomeScreen";
 import HomeScreen from "./pages/HomeScreen";
@@ -10,6 +11,7 @@ import Quotes from "./pages/Quotes";
 import Calculator from "./pages/Calculator";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 function BottomTabNavigator() {
   return (
@@ -21,16 +23,24 @@ function BottomTabNavigator() {
         tabBarShowLabel: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "Home") {
-            iconName = "home";
-          } else if (route.name === "Profile") {
-            iconName = "person";
-          } else if (route.name === "Exercise") {
-            iconName = "flame";
-          } else if (route.name === "Quotes") {
-            iconName = "comment-discussion";
-          } else if (route.name === "Calculator") {
-            iconName = "law";
+          switch (route.name) {
+            case "Home":
+              iconName = "home";
+              break;
+            case "Profile":
+              iconName = "person";
+              break;
+            case "Exercise":
+              iconName = "flame";
+              break;
+            case "Quotes":
+              iconName = "comment-discussion";
+              break;
+            case "Calculator":
+              iconName = "law";
+              break;
+            default:
+              iconName = "circle";
           }
           return (
             <Octicons
@@ -64,7 +74,21 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {showWelcome ? <WelcomeScreen /> : <BottomTabNavigator />}
+      <Stack.Navigator>
+        {showWelcome ? (
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            options={{ headerShown: false }}
+          />
+        ) : (
+          <Stack.Screen
+            name="Main"
+            component={BottomTabNavigator}
+            options={{ headerShown: false }}
+          />
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

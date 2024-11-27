@@ -10,7 +10,7 @@ import {
 function Quotes() {
   const [quotes, setQuotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const apiKey = "b2/HnECv2aLJ8LyVtfUKhw==kf8BPwngb7sY7k4W"; // Pastikan ini API key yang valid
+  const apiKey = "b2/HnECv2aLJ8LyVtfUKhw==kf8BPwngb7sY7k4W";
 
   const fetchQuotes = async () => {
     setIsLoading(true);

@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   Modal,
   ScrollView,
-  TouchableWithoutFeedback,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { bodyParts } from "../data/bodyParts";
 import { exercises } from "../data/exercises";
@@ -17,6 +17,7 @@ import { exercises } from "../data/exercises";
 function Exercise() {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedExercises, setSelectedExercises] = useState([]);
+  const [imageLoading, setImageLoading] = useState({});
 
   const handleBodyPartPress = (bodyPart) => {
     const filteredExercises = exercises.filter(
@@ -24,6 +25,13 @@ function Exercise() {
     );
     setSelectedExercises(filteredExercises);
     setShowDetailModal(true);
+  };
+
+  const handleImageLoad = (exerciseId, status) => {
+    setImageLoading((prev) => ({
+      ...prev,
+      [exerciseId]: status,
+    }));
   };
 
   const renderBodyPartItem = ({ item }) => (
@@ -52,12 +60,33 @@ function Exercise() {
             showsVerticalScrollIndicator={true}
           >
             {selectedExercises.length > 0 ? (
-              selectedExercises.map((exercise, index) => (
-                <View key={index} style={styles.exerciseCard}>
-                  <Image
-                    source={{ uri: exercise.gifUrl }}
-                    style={styles.exerciseGif}
-                  />
+              selectedExercises.map((exercise) => (
+                <View key={exercise.id} style={styles.exerciseCard}>
+                  <View style={styles.exerciseGifContainer}>
+                    {imageLoading[exercise.id] !== false && (
+                      <ActivityIndicator
+                        style={styles.loader}
+                        size="large"
+                        color="#0000ff"
+                      />
+                    )}
+                    <Image
+                      source={{
+                        uri: exercise.gifUrl,
+                        headers: {
+                          Accept: "image/gif",
+                        },
+                      }}
+                      style={[
+                        styles.exerciseGif,
+                        imageLoading[exercise.id] === false &&
+                          styles.imageLoaded,
+                      ]}
+                      onLoadStart={() => handleImageLoad(exercise.id, true)}
+                      onLoad={() => handleImageLoad(exercise.id, false)}
+                      onError={() => handleImageLoad(exercise.id, false)}
+                    />
+                  </View>
                   <Text style={styles.detailTitle}>{exercise.name}</Text>
                   <Text style={styles.detailText}>
                     Target: {exercise.target}
@@ -69,9 +98,9 @@ function Exercise() {
                     Secondary Muscles: {exercise.secondaryMuscles.join(", ")}
                   </Text>
                   <Text style={styles.detailSubTitle}>Instructions:</Text>
-                  {exercise.instructions.map((step, stepIndex) => (
-                    <Text key={stepIndex} style={styles.detailText}>
-                      {stepIndex + 1}. {step}
+                  {exercise.instructions.map((step, index) => (
+                    <Text key={index} style={styles.detailText}>
+                      {index + 1}. {step}
                     </Text>
                   ))}
                 </View>
@@ -112,13 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     marginBottom: 20,
-    justifyContent: "center",
     textAlign: "center",
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
   },
   bodyPartList: {
     paddingVertical: 10,
@@ -195,12 +218,28 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  exerciseGifContainer: {
+    width: "100%",
+    height: 200,
+    backgroundColor: "#f0f0f0",
+    borderRadius: 8,
+    marginBottom: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   exerciseGif: {
     width: "100%",
     height: 200,
     resizeMode: "cover",
     borderRadius: 8,
-    marginBottom: 10,
+    opacity: 0,
+  },
+  imageLoaded: {
+    opacity: 1,
+  },
+  loader: {
+    position: "absolute",
+    zIndex: 1,
   },
   detailTitle: {
     fontSize: 18,
